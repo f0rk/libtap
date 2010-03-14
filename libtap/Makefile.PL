@@ -107,8 +107,58 @@ sub install {
     if(!defined($cfg->{'config'}->{'version'})) {
         Carp::croak('Version not defined');
     }
+    
+    if(!defined($cfg->{'config'}->{'repository'})) {
+        Carp::croak('Repository not defined');
+    }
+    
+    if(!defined($cfg->{'config'}->{'author'})) {
+        Carp::croak('Author not defined');
+    }
+    
+    if(!defined($cfg->{'config'}->{'copyright_holder'})) {
+        Carp::croak('Copyright holder not defined');
+    }
+    
+    if(!defined($cfg->{'config'}->{'license'})) {
+        Carp::croak('License not defined');
+    }
 
     #manify our docs
+    #replace the placeholders with the appropriate values
+    my $pod = read_file('build/doc/libtap.pod');
+    
+    #version
+    $pod =~ s/\$VERSION\$/$cfg->{'config'}->{'version'}/;
+    
+    #repository
+    $pod =~ s/\$REPOSITORY\$/The source code repository for this project is located at:\n\n  $cfg->{'config'}->{'repository'}/;
+    
+    #author
+    if(ref($cfg->{'config'}->{'author'}) eq 'ARRAY') {
+        my $author = join("\n  ", @{$cfg->{'config'}->{'author'}});
+        $author = '  '.$author;
+        $author =~ s/\s+$//;
+        $pod =~ s/\$AUTHOR\$/$author/;
+    } else {
+        $pod =~ s/\$AUTHOR\$/  $cfg->{'config'}->{'author'}/;
+    }
+    
+    #copyright
+    my @td = localtime();
+    my $copyright = 'This software is Copyright (c) '.($td[5]+1900).' by '.$cfg->{'config'}->{'copyright_holder'}.".\n\n";
+    $copyright .= 'This is free software, licensed under:'."\n\n";
+    if($cfg->{'config'}->{'license'} eq 'MIT') {
+        $copyright .= '  The MIT (X11) License';
+    } elsif($cfg->{'config'}->{'license'} eq 'BSD') {
+    $copyright .= '  The Simplified BSD License';
+    } else {
+        Carp::croak('Unsupported license type');
+    }
+    $pod =~ s/\$COPYRIGHT\$/$copyright/;
+    
+    write_file('build/doc/libtap.pod', $pod) || Carp::croak('Could not replace special configuration values in POD');
+    
     my $p2m = Pod::Man->new('center' => $cfg->{'config'}->{'name'}.': '.$cfg->{'config'}->{'abstract'},
                             'name' => $cfg->{'config'}->{'name'},
                             'release' => $cfg->{'config'}->{'version'}
@@ -118,11 +168,19 @@ sub install {
     copy('build/doc/libtap.1', '/usr/local/man/man1/libtap.1') || Carp::croak("Could not install man: $!");
     print "cp build/doc/libtap.1 /usr/local/man/man1/libtap.1\n";
 
-    #copy into install dirs
+    #compile and copy into install dirs
     copy('build/src/tap.h', '/usr/include/tap.h') || Carp::croak("Could not install tap.h: $!");
     print "cp build/src/tap.h /usr/include/tap.h\n";
-    copy('build/src/tap.o', '/usr/lib/tap.o') || Carp::croak("Could not install tap.o: $!");
+    system(join(' ', ($CC, '-Wall -fPIC -c build/src/tap.c -o build/src/tap.o')));
+    print join(' ', ($CC, '-Wall -fPIC -c build/src/tap.c -o build/src/tap.o')), "\n";
+    system(join(' ', ($CC, '-Wall -shared -Wl,-soname,libtap.so.1 -o build/src/libtap.so.1.0.0 build/src/tap.o -lc')));
+    print join(' ', ($CC, '-Wall -shared -Wl,-soname,libtap.so.1 -o build/src/libtap.so.1.0.0 build/src/tap.o -lc')), "\n";
+    copy('build/src/libtap.so.1.0.0', '/usr/lib/libtap.so.1.0.0') || Carp::croak("Could not install libtap.so.1.0.0: $!");
     print "cp build/src/tap.o /usr/include/tap.o\n";
+    symlink('/usr/lib/libtap.so.1.0.0', '/usr/lib/libtap.so.1');
+    print 'ln -s /usr/lib/libtap.so.1.0.0 /usr/lib/libtap.so.1', "\n";
+    symlink('/usr/lib/libtap.so.1.0.0', '/usr/lib/libtap.so');
+    print 'ln -s /usr/lib/libtap.so.1.0.0 /usr/lib/libtap.so', "\n";
 }
 
 sub clean {

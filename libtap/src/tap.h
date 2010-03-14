@@ -11,13 +11,13 @@ int tap_plan(int num_tests);
 
 /* comparisons */
 int tap_ok(int boolean, char *message);
-int tap_not_ok(int boolean,  char *message);
+int tap_not_ok(int boolean, char *message);
 #define tap_is(A,B,C) tap_ok(A==B,C)
 #define tap_isnt(A,B,C) tap_ok(A!=B,C)
-int tap_is_str(char *lval, char *rval,  char *message);
-int tap_isnt_str(char *lval, char *rval,  char *message);
-int tap_like(char *val, char *regex,  char *message, int flags);
-int tap_unlike(char *val, char *regex,  char *message, int flags);
+int tap_is_str(char *lval, char *rval, char *message);
+int tap_isnt_str(char *lval, char *rval, char *message);
+int tap_like(char *val, char *regex, char *message, int flags);
+int tap_unlike(char *val, char *regex, char *message, int flags);
 
 /* test control */
 int tap_pass(char *message);
