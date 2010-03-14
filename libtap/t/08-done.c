@@ -28,5 +28,7 @@ int main() {
     tap_unlike("foobar", "foo$", "\"foobar\" is unlike \"foo$\"", REG_EXTENDED);
     tap_unlike("foobar", "^foo$", "\"foobar\" is unlike \"^foo$\"", REG_EXTENDED);
     
+    tap_done();
+    
     return tap_status();
 }

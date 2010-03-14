@@ -4,6 +4,8 @@
 int main() {
     tap_plan(18);
     
+    tap_skip_all("not implemented");
+    
     //is/isn't
     tap_is('a','a', "'a' is 'a'");
     tap_is(1, 1, "1 is 1");

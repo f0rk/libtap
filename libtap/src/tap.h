@@ -1,3 +1,5 @@
+#include <regex.h>
+
 #define TAP_SUCCESS 0;
 #define TAP_DIED 255;
 #define TAP_WRONG 255;

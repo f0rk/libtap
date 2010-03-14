@@ -12,7 +12,8 @@ int main() {
     tap_isnt(0, 1, "0 isn't 1");
     tap_isnt(2.0, 4.0, "2.0 isn't 4.0");
     
-    //is/isn't str
+    //skippity-do-da
+    tap_skip(4, "skip strings");
     tap_is_str("foo", "foo", "\"foo\" is \"foo\"");
     tap_is_str("1", "1", "\"1\" is \"1\"");
     tap_isnt_str("foo", "bar", "\"foo\" isn't \"bar\"");
@@ -22,6 +23,7 @@ int main() {
     tap_like("foobar", "foo*", "\"foobar\" is like \"foo*\"", REG_EXTENDED);
     tap_like("foobar", "^foo", "\"foobar\" is like \"^foo\"", REG_EXTENDED);
     tap_like("foobar", "bar$", "\"foobar\" is like \"bar$\"", REG_EXTENDED);
+    tap_skip(2, "don't care");
     tap_like("foobar", "fooba[rz]", "\"foobar\" is like \"fooba[rz]\"", REG_EXTENDED);
     tap_unlike("foobar", "foobaz", "\"foobar\" is unlike \"foobaz\"", REG_EXTENDED);
     tap_unlike("foobar", "baz$", "\"foobar\" is unlike \"baz$\"", REG_EXTENDED);
