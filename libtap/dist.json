@@ -1,0 +1,11 @@
+{
+    "config": {
+        "name": "libtap",
+        "version": "0.10",
+        "abstract": "C Tap emitter",
+        "author": "Ryan P. Kelly <rpkelly@cpan.org>",
+        "license": "MIT",
+        "copyright_holder": "Ryan P. Kelly",
+        "repository": "http://github.com/f0rk/libtap"
+    }
+}
