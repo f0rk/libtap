@@ -44,8 +44,10 @@ easy testing capabilities to C projects.
 libtap need not be installed before use. You may of course copy the
 necessary files (tap.c and tap.h) into the same directory as your
 project and build directly against them. If libtap is installed,
-simply 
+simply
+
   #include <tap.h>
+
 and you'll be ready to go.
 
 =head2 #include
@@ -76,6 +78,13 @@ in the middle of their run. C<main> should C<return tap_status()>, as
 the return code signals to TAP::Harness the result of the test. In between
 C<tap_plan> and C<tap_status>, should be your tests, which are described
 below in L<Comparison methods>.
+
+=head2 Using with TAP::Harness
+
+libtap output is suitable for consumption by TAP parsers, such as TAP::Harness.
+To use libtap with TAP::Harness, you should pass in exec => [] to C<TAP::Harness->new()>,
+which will allow it to run your tests as compiled executables. See the example I<harness.pl>
+that came with the distribution of libtap you are using.
 
 =head2 Comparison methods
 
