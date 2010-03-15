@@ -171,12 +171,12 @@ sub install {
     #compile and copy into install dirs
     copy('build/src/tap.h', '/usr/include/tap.h') || Carp::croak("Could not install tap.h: $!");
     print "cp build/src/tap.h /usr/include/tap.h\n";
-    system(join(' ', ($CC, '-Wall -fPIC -c build/src/tap.c -o build/src/tap.o')));
-    print join(' ', ($CC, '-Wall -fPIC -c build/src/tap.c -o build/src/tap.o')), "\n";
-    system(join(' ', ($CC, '-Wall -shared -Wl,-soname,libtap.so.1 -o build/src/libtap.so.1.0.0 build/src/tap.o -lc')));
-    print join(' ', ($CC, '-Wall -shared -Wl,-soname,libtap.so.1 -o build/src/libtap.so.1.0.0 build/src/tap.o -lc')), "\n";
+    system(join(' ', ($CC, '-Wall -O2 -fPIC -c build/src/tap.c -o build/src/tap.o')));
+    print join(' ', ($CC, '-Wall -O2 -fPIC -c build/src/tap.c -o build/src/tap.o')), "\n";
+    system(join(' ', ($CC, '-Wall -O2 -shared -Wl,-soname,libtap.so.1 -o build/src/libtap.so.1.0.0 build/src/tap.o -lc')));
+    print join(' ', ($CC, '-Wall -O2 -shared -Wl,-soname,libtap.so.1 -o build/src/libtap.so.1.0.0 build/src/tap.o -lc')), "\n";
     copy('build/src/libtap.so.1.0.0', '/usr/lib/libtap.so.1.0.0') || Carp::croak("Could not install libtap.so.1.0.0: $!");
-    print "cp build/src/tap.o /usr/include/tap.o\n";
+    print "cp build/src/tap.so.1.0.0 /usr/include/libtap.so.1.0.0\n";
     symlink('/usr/lib/libtap.so.1.0.0', '/usr/lib/libtap.so.1');
     print 'ln -s /usr/lib/libtap.so.1.0.0 /usr/lib/libtap.so.1', "\n";
     symlink('/usr/lib/libtap.so.1.0.0', '/usr/lib/libtap.so');
