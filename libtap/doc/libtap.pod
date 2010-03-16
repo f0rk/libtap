@@ -8,7 +8,6 @@ $VERSION$
 
 =head1 SYNOPSIS
 
-  #include <stdio.h>
   #include <tap.h>
   
   int main() {
