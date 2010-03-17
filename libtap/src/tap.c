@@ -54,7 +54,7 @@ int tap_ok(int boolean, char *message) {
     //huzzah!
     if(boolean) {
         if(tap_do_skip) {
-            printf("%s %d # skip %s\n", "ok", tap_test_total, tap_skip_message);
+            printf("%s %d # SKIP %s\n", "ok", tap_test_total, tap_skip_message);
             --tap_do_skip;
             return TAP_TSUCCESS;
         }
@@ -74,7 +74,7 @@ int tap_ok(int boolean, char *message) {
     
     //skipping anyway
     if(tap_do_skip) {
-        printf("%s %d # skip %s\n", "not ok", tap_test_total, tap_skip_message);
+        printf("%s %d # SKIP %s\n", "not ok", tap_test_total, tap_skip_message);
         --tap_do_skip;
         return TAP_TFAIL;
     }
@@ -168,15 +168,16 @@ int tap_skip(int number, char *message) {
 }
 
 int tap_skip_all(char *message) {
+    if(message == 0) {
+        message = "";
+    }
+    
     if(!tap_plan_is_printed) {
-        printf("1..0 # Skipped: %s\n", message == 0 ? "" : message);
+        printf("1..0 # SKIP %s\n", message);
         exit(0); //TAP_SUCCESS
     }
     
     tap_do_skip = INT_MAX;
-    if(message == 0) {
-        message = "";
-    }
     tap_skip_message = message;
     
     return tap_do_skip;
@@ -189,21 +190,6 @@ int tap_todo(int number, char *message) {
     }
     
     tap_do_todo = number;
-    if(message == 0) {
-        message = "";
-    }
-    tap_todo_message = message;
-    
-    return tap_do_todo;
-}
-
-int tap_todo_all(char *message) {
-    if(!tap_plan_is_printed) {
-        printf("1..0 # TODO: %s\n", message == 0 ? "" : message);
-        exit(0); //TAP_SUCCESS
-    }
-    
-    tap_do_todo = INT_MAX;
     if(message == 0) {
         message = "";
     }

@@ -26,7 +26,6 @@ int tap_bail(char *message);
 int tap_skip(int number, char *message);
 int tap_skip_all(char *message);
 int tap_todo(int number, char *message);
-int tap_todo_all(char *message);
 int tap_done();
 
 /* finish */
