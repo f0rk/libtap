@@ -20,15 +20,15 @@ int main() {
     tap_isnt_str("0", "1", "\"0\" isn't \"1\"");
     
     //like/unlike
-    tap_like("foobar", "foo*", "\"foobar\" is like \"foo*\"", REG_EXTENDED);
-    tap_like("foobar", "^foo", "\"foobar\" is like \"^foo\"", REG_EXTENDED);
-    tap_like("foobar", "bar$", "\"foobar\" is like \"bar$\"", REG_EXTENDED);
+    tap_like("foobar", "foo*", REG_EXTENDED, "\"foobar\" is like \"foo*\"");
+    tap_like("foobar", "^foo", REG_EXTENDED, "\"foobar\" is like \"^foo\"");
+    tap_like("foobar", "bar$", REG_EXTENDED, "\"foobar\" is like \"bar$\"");
     tap_todo(2, "don't care");
-    tap_like("foobar", "fooba[rz]", "\"foobar\" is like \"fooba[rz]\"", REG_EXTENDED);
-    tap_unlike("foobar", "foobaz", "\"foobar\" is unlike \"foobaz\"", REG_EXTENDED);
-    tap_unlike("foobar", "baz$", "\"foobar\" is unlike \"baz$\"", REG_EXTENDED);
-    tap_unlike("foobar", "foo$", "\"foobar\" is unlike \"foo$\"", REG_EXTENDED);
-    tap_unlike("foobar", "^foo$", "\"foobar\" is unlike \"^foo$\"", REG_EXTENDED);
+    tap_like("foobar", "fooba[rz]", REG_EXTENDED, "\"foobar\" is like \"fooba[rz]\"");
+    tap_unlike("foobar", "foobaz", REG_EXTENDED, "\"foobar\" is unlike \"foobaz\"");
+    tap_unlike("foobar", "baz$", REG_EXTENDED, "\"foobar\" is unlike \"baz$\"");
+    tap_unlike("foobar", "foo$", REG_EXTENDED, "\"foobar\" is unlike \"foo$\"");
+    tap_unlike("foobar", "^foo$", REG_EXTENDED, "\"foobar\" is unlike \"^foo$\"");
     
     return tap_status();
 }

@@ -103,7 +103,7 @@ int tap_isnt_str(char *lval, char *rval, char *message) {
     return tap_ok(strcmp(lval, rval), message);
 }
 
-int tap_like(char *val, char *regex, char *message, int flags) {
+int tap_like(char *val, char *regex, int flags, char *message) {
     int res;
     regex_t re;
     res = regcomp(&re, regex, flags);
@@ -121,7 +121,7 @@ int tap_like(char *val, char *regex, char *message, int flags) {
     return tap_ok(1, message);
 }
 
-int tap_unlike(char *val, char *regex, char *message, int flags) {
+int tap_unlike(char *val, char *regex, int flags, char *message) {
     int res;
     regex_t re;
     res = regcomp(&re, regex, flags);
