@@ -13,8 +13,8 @@ int main() {
     tap_isnt('a', 'b', "'a' isn't 'b'");
     tap_isnt(2.0, 4.0, "2.0 isn't 4.0");
 
-    tap_like("foobar", "^foo", "\"foobar\" is like \"^foo\"", REG_EXTENDED);
-    tap_unlike("foobar", "foo$", "\"foobar\" is unlike \"foo$\"", REG_EXTENDED);
+    tap_like("foobar", "^foo", REG_EXTENDED, "\"foobar\" is like \"^foo\"");
+    tap_unlike("foobar", "foo$", REG_EXTENDED, "\"foobar\" is unlike \"foo$\"");
 
     tap_pass("just passing");
     

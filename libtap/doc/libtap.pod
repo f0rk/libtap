@@ -23,8 +23,8 @@ $VERSION$
       tap_isnt('a', 'b', "'a' isn't 'b'");
       tap_isnt(2.0, 4.0, "2.0 isn't 4.0");
       
-      tap_like("foobar", "^foo", "\"foobar\" is like \"^foo\"", REG_EXTENDED);
-      tap_unlike("foobar", "foo$", "\"foobar\" is unlike \"foo$\"", REG_EXTENDED);
+      tap_like("foobar", "^foo", REG_EXTENDED, "\"foobar\" is like \"^foo\"");
+      tap_unlike("foobar", "foo$", REG_EXTENDED, "\"foobar\" is unlike \"foo$\"");
       
       tap_pass("just passing");
       
@@ -95,8 +95,8 @@ libtap provides 6 comparison methods, and two comparison macros. They are as fol
   #define tap_isnt(A,B,C) tap_ok(A!=B,C)
   int tap_is_str(char *lval, char *rval, char *message);
   int tap_isnt_str(char *lval, char *rval, char *message);
-  int tap_like(char *val, char *regex, char *message, int flags);
-  int tap_unlike(char *val, char *regex, char *message, int flags);
+  int tap_like(char *val, char *regex, int flags, char *message);
+  int tap_unlike(char *val, char *regex, int flags, char *message);
 
 All of these methods require a message, which will be printed as a
 diagnostic along with the test result (C<ok> or C<not ok>). In the case of the
@@ -174,19 +174,17 @@ that C<lval> should not be equal to, and a status message for that test.
 
 =head2 tap_like
 
-B<Signature:> int tap_like(char *val, char *regex, char *message, int flags)
+B<Signature:> int tap_like(char *val, char *regex, int flags, char *message)
 
 C<tap_like> takes four arguments, a C string, a C string representing a regular expression that should match the provided string,
-a status message for that test, and the appropriate flags for that regular expression, as
-found in C<regex.h>. See also C<man regex>.
+the appropriate flags for that regular expression (as found in C<regex.h>), and a status message for that test. See also C<man regex>.
 
 =head2 tap_unlike
 
-B<Signature:> int tap_unlike(char *val, char *regex, char *message, int flags)
+B<Signature:> int tap_unlike(char *val, char *regex, int flags, char *message)
 
 C<tap_unlike> takes four arguments, a C string, a C string representing a regular expression that shouldn't match the provided string,
-a status message for that test, and the appropriate flags for that regular expression, as
-found in C<regex.h>. See also C<man regex>.
+the appropriate flags for that regular expression (as found in C<regex.h>), and a status message for that test. See also C<man regex>.
 
 =head2 tap_pass
 
