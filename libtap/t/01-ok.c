@@ -2,7 +2,7 @@
 #include "tap.h"
 
 int main() {
-    tap_plan(18);
+    tap_plan(9);
     
     tap_ok(1, "1");
     tap_ok(1==1, "1==1");
