@@ -209,6 +209,14 @@ int tap_done() {
 }
 
 int tap_status() {
+    if(tap_test_total != tap_test_planned) {
+        if(tap_test_planned == 1) {
+            printf("# It looks like you planned %d test but ran %d.", tap_test_planned, tap_test_total);
+        } else {
+            printf("# It looks like you planned %d tests but ran %d.", tap_test_planned, tap_test_total);
+        }
+    }
+    
     if(tap_plan_is_printed == 0) {
         if(tap_test_planned == INT_MAX) {
             printf("1..%d\n", tap_test_total);
