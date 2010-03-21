@@ -1,7 +1,7 @@
 #include <tap.h>
   
 int main() {
-    tap_plan(16);
+    tap_plan(11);
 
     tap_ok(1==1, "1==1");
     tap_not_ok(1==2, "1==2");
